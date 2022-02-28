@@ -34,10 +34,18 @@ hand_type::hand_type()
 //////////////////////////////////////////////////
 // Destructor
 hand_type::~hand_type()
-// delete all nodes in the hand
+// delete all nodes in the hand  DOUBLE CHECK THIS FUNCTION
 {
-  // call discard hand
-  discard_hand();
+  card_node *curr_ptr = head_ptr;
+  card_node *next_ptr = NULL;
+  while (curr_ptr != NULL)
+  {
+    next_ptr = curr_ptr->link_ptr;
+    delete curr_ptr;
+    curr_ptr = next_ptr;
+  }
+  head_ptr = NULL;
+  hand_size = 0;
 }
 
 
@@ -91,27 +99,53 @@ string hand_type::to_string() const
 //////////////////////////////////////////////////
 // Modifiers
 void hand_type::add_card(const card_type &newcard)
-// add the card to the hand
-// NEED TO FIX THIS! 
-// this function currently adds a card to the end, need to add card in order of suit, the number
-// wil need to interact with card.cpp
+// add the card to the hand 
+// card must be ordered by suit and then by rank
+
 {
-  card_node *new_node = new card_node(newcard);
-  if (head_ptr == NULL)
+  card_node *curr_ptr = head_ptr;
+  card_node *prev_ptr = NULL;
+  card_node *new_ptr = new card_node(newcard);
+  while (curr_ptr != NULL)
   {
-    head_ptr = new_node;
+    // if the new card is less than the current card, insert it before the current card
+    if (newcard < curr_ptr->card)
+    {
+      // if the previous card is NULL, insert the new card at the head
+      if (prev_ptr == NULL)
+      {
+        new_ptr->link_ptr = head_ptr;
+        head_ptr = new_ptr;
+      }
+      // else insert the new card between the previous card and the current card
+      else
+      {
+        new_ptr->link_ptr = curr_ptr;
+        prev_ptr->link_ptr = new_ptr;
+      }
+      hand_size++;
+      return;
+    }
+    // if the new card is greater than the current card, move on to the next card
+    prev_ptr = curr_ptr;
+    curr_ptr = curr_ptr->link_ptr;
   }
+  // if the new card is greater than all cards in the hand, insert it at the end
+  if (prev_ptr == NULL)
+  {
+    new_ptr->link_ptr = head_ptr;
+    head_ptr = new_ptr;
+  }
+
+  // if the new card is less than all cards in the hand, insert it at the end
   else
   {
-    card_node *curr_ptr = head_ptr;
-    while (curr_ptr->link_ptr != NULL)
-    {
-      curr_ptr = curr_ptr->link_ptr;
-    }
-    curr_ptr->link_ptr = new_node;
+    prev_ptr->link_ptr = new_ptr;
   }
-  hand_size+=1;
+  hand_size++;
 }
+
+
 
 void hand_type::remove_card(const card_type &target)
 // remove the card if found in the hand
@@ -156,6 +190,8 @@ void hand_type::discard_hand()
   head_ptr = NULL;
   hand_size = 0;
 }
+
+
 //////////////////////////////////////////////////
 // Private member functions (if any)
 
