@@ -37,7 +37,7 @@ int main() {
   // For capturing non-string output.
   stringstream result;
 
-
+  cout << "testing hand_type constructor" << endl;
   return 0;
 }
 

@@ -5,7 +5,7 @@
   CLASS INVARIANTS:
   - Cards are stored in card_node objects in a linked list.
   - head_ptr points to the first node in the list, or NULL if the list is empty.
-  - Each node in the list contains a pointer to the next node, or NULL if it's the last node in the list.
+  - Each node in the list contains a pointer to the link_ptr node, or NULL if it's the last node in the list.
   - Cards are stored in increasing order, with the "lowest" card at the head.
 */
 
@@ -26,7 +26,7 @@ hand_type::hand_type()
 // create an empty hand
 {
   head_ptr = NULL;
-  size = 0;
+  hand_size = 0;
 }
 
 
@@ -48,7 +48,7 @@ hand_type::~hand_type()
 size_t hand_type::size() const
 // return the number of cards in the hand
 {
-  return size;
+  return hand_size;
 }
 
 bool hand_type::has_card(card_type target) const
@@ -63,7 +63,7 @@ bool hand_type::has_card(card_type target) const
     }
     else
     {
-      curr_ptr = curr_ptr->next;
+      curr_ptr = curr_ptr->link_ptr;
     }
   }
   return false;
@@ -72,7 +72,7 @@ bool hand_type::has_card(card_type target) const
 bool hand_type::is_empty() const
 // return true if the hand is empty
 {
-  return (size == 0);
+  return (hand_size == 0);
 }
 
 string hand_type::to_string() const
@@ -83,7 +83,7 @@ string hand_type::to_string() const
   while (curr_ptr != NULL)
   {
     hand_string += curr_ptr->card.to_string() + " ";
-    curr_ptr = curr_ptr->next;
+    curr_ptr = curr_ptr->link_ptr;
   }
   return hand_string;
 }
@@ -93,6 +93,8 @@ string hand_type::to_string() const
 void hand_type::add_card(const card_type &newcard)
 // add the card to the hand
 // NEED TO FIX THIS! 
+// this function currently adds a card to the end, need to add card in order of suit, the number
+// wil need to interact with card.cpp
 {
   card_node *new_node = new card_node(newcard);
   if (head_ptr == NULL)
@@ -102,13 +104,13 @@ void hand_type::add_card(const card_type &newcard)
   else
   {
     card_node *curr_ptr = head_ptr;
-    while (curr_ptr->next != NULL)
+    while (curr_ptr->link_ptr != NULL)
     {
-      curr_ptr = curr_ptr->next;
+      curr_ptr = curr_ptr->link_ptr;
     }
-    curr_ptr->next = new_node;
+    curr_ptr->link_ptr = new_node;
   }
-  size+=1;
+  hand_size+=1;
 }
 
 void hand_type::remove_card(const card_type &target)
@@ -122,20 +124,20 @@ void hand_type::remove_card(const card_type &target)
     {
       if (prev_ptr == NULL)
       {
-        head_ptr = curr_ptr->next;
+        head_ptr = curr_ptr->link_ptr;
       }
       else
       {
-        prev_ptr->next = curr_ptr->next;
+        prev_ptr->link_ptr = curr_ptr->link_ptr;
       }
       delete curr_ptr;
-      size-=1;
+      hand_size-=1;
       return;
     }
     else
     {
       prev_ptr = curr_ptr;
-      curr_ptr = curr_ptr->next;
+      curr_ptr = curr_ptr->link_ptr;
     }
   }
 }
@@ -144,15 +146,15 @@ void hand_type::discard_hand()
 //remove all cards from hand
 {
   card_node *curr_ptr = head_ptr;
-  card_node *next_ptr;
+  card_node *link_ptr_ptr;
   while (curr_ptr != NULL)
   {
-    next_ptr = curr_ptr->next;
+    link_ptr_ptr = curr_ptr->link_ptr;
     delete curr_ptr;
-    curr_ptr = next_ptr;
+    curr_ptr = link_ptr_ptr;
   }
   head_ptr = NULL;
-  size = 0;
+  hand_size = 0;
 }
 //////////////////////////////////////////////////
 // Private member functions (if any)
@@ -167,8 +169,8 @@ hand_type::card_node::card_node() {
   link_ptr = NULL;
 }
 
-hand_type::card_node::card_node(const card_type &newcard, card_node *next_ptr) {
+hand_type::card_node::card_node(const card_type &newcard, card_node *link_ptr_ptr) {
   card = newcard;
-  link_ptr = next_ptr;
+  link_ptr = link_ptr_ptr;
 }
 

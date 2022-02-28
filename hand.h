@@ -71,6 +71,7 @@ private:
   
   card_node *head_ptr; // First card in the hand.
   
+  int hand_size; // <-----------------------------------------------------------------------------------SEE IF THIS IS ALLOWED
 };
 
 
