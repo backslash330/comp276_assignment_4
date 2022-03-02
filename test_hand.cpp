@@ -93,7 +93,7 @@ int main() {
 
   cout << endl;
   cout << "***************************************************************" << endl;
-  cout << "adding multiple cards in order AD 10D 4D AS QS 2S AC 9C" << endl;
+  cout << "adding multiple cards in order AD 10D 4D AS QS 2S AC 9C AH" << endl;
   hand.add_card(diamondsA);
   hand.add_card(diamonds10);
   hand.add_card(diamonds4);
@@ -102,11 +102,12 @@ int main() {
   hand.add_card(spades2);
   hand.add_card(clubsA);
   hand.add_card(clubs9);
+  hand.add_card(heartsA);
   cout << "expected size: 9" << endl;
   cout << "hand_type size: " << hand.size() << endl;
   cout << "expected empty: false" << endl;
   cout << "hand_type is_empty: " << hand.is_empty() << endl;
-  cout << "expected string:     9C AC 2S QS AS 4D 10D AD QH" << endl;
+  cout << "expected string:     9C AC 2S QS AS 4D 10D AD QH AH" << endl;
   cout << "hand_type to_string: " << hand.to_string() << endl;
   cout << "expected has_card: 1 " << endl;
   cout << "hand_type has_card: " << hand.has_card(heartsA) << endl;
@@ -129,7 +130,7 @@ int main() {
 
   cout << endl;
   cout << "***************************************************************" << endl;
-  cout << "adding multiple cards in order: AD AS 2S 10D 4D AC QS 9C" << endl;
+  cout << "adding multiple cards in order: AD AS 2S 10D 4D AC QS 9C QH" << endl;
   hand.add_card(diamondsA);
   hand.add_card(spadesA);
   hand.add_card(spades2);
@@ -138,11 +139,12 @@ int main() {
   hand.add_card(clubsA);
   hand.add_card(spadesQ);
   hand.add_card(clubs9);
+  hand.add_card(heartsQ);
   cout << "expected size: 8" << endl;
   cout << "hand_type size: " << hand.size() << endl;
   cout << "expected empty: false" << endl;
   cout << "hand_type is_empty: " << hand.is_empty() << endl;
-  cout << "expected string:     9C AC 2S QS AS 4D 10D AD" << endl;
+  cout << "expected string:     9C AC 2S QS AS 4D 10D AD QH" << endl;
   cout << "hand_type to_string: " << hand.to_string() << endl;
   cout << "hand_type has_card: " << hand.has_card(heartsA) << endl;
   cout << "***************************************************************" << endl;
