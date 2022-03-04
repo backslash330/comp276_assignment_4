@@ -36,16 +36,7 @@ hand_type::hand_type()
 hand_type::~hand_type()
 // delete all nodes in the hand  DOUBLE CHECK THIS FUNCTION
 {
-  card_node *curr_ptr = head_ptr;
-  card_node *next_ptr = NULL;
-  while (curr_ptr != NULL)
-  {
-    next_ptr = curr_ptr->link_ptr;
-    delete curr_ptr;
-    curr_ptr = next_ptr;
-  }
-  head_ptr = NULL;
-  hand_size = 0;
+  discard_hand();
 }
 
 
@@ -179,18 +170,26 @@ void hand_type::remove_card(const card_type &target)
 void hand_type::discard_hand()
 //remove all cards from hand
 {
-  card_node *curr_ptr = head_ptr;
-  card_node *link_ptr_ptr;
-  while (curr_ptr != NULL)
-  {
-    link_ptr_ptr = curr_ptr->link_ptr;
-    delete curr_ptr;
-    curr_ptr = link_ptr_ptr;
-  }
-  head_ptr = NULL;
-  hand_size = 0;
+
+card_node *curr_ptr;
+
+while (head_ptr !=NULL){
+  curr_ptr = head_ptr;
+  head_ptr = head_ptr->link_ptr;
+  delete head_ptr;
+}
+hand_size = 0;
 }
 
+
+// card_node *curr_ptr;
+
+// while (head_ptr !=NULL){
+//   curr_ptr = head_ptr;
+//   head_ptr = head_ptr->link;
+//   delete head_ptr;
+// }
+// hand_size = 0;
 
 //////////////////////////////////////////////////
 // Private member functions (if any)
