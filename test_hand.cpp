@@ -1,7 +1,8 @@
 /*
-  YOUR NAME AND COMMENT AND STUFF GO HERE.  PLEASE DELETE THIS LINE.
-  THIS TEST CODE NEEDS TO BE COMPLETED
-  currenty shows how to use the card_type constructor
+  Nicholas Almeida 
+  Mar 8, 2022
+  CMPT276 - Data Struct 
+  Assignment 4
 
 
   There are 4 suits in a standard set. In some games, some suits are more valuable than others.

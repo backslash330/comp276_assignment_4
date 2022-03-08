@@ -1,6 +1,8 @@
 /*
-  YOUR NAME AND COMMENT AND STUFF GO HERE.  PLEASE DELETE THIS LINE.
-
+ Nicholas Almeida 
+  Mar 8, 2022
+  CMPT276 - Data Struct 
+  Assignment 4
   
   CLASS INVARIANTS:
   - Cards are stored in card_node objects in a linked list.
